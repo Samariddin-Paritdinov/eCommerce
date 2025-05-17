@@ -54,13 +54,14 @@ LOCAL_APPS = [
 ]
 
 EXTERNAL_APPS = [
+    'jazzmin',
     'rest_framework',
     'rest_framework_simplejwt',
     'drf_yasg',
 ]
 
 
-INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + EXTERNAL_APPS
+INSTALLED_APPS = EXTERNAL_APPS + DJANGO_APPS + LOCAL_APPS
 
 
 MIDDLEWARE = [

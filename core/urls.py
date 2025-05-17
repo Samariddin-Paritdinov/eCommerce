@@ -29,7 +29,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('medifiles/', include('common.api_endpoints.MediaFile.urls')),
     path('products/', include('products.api_endpoints.Product.urls')),
-    path('productvariants/', include('products.api_endpoints.ProductVariant.urls')),
+    path('product_variants/', include('products.api_endpoints.ProductVariant.urls')),
     path('categories/', include('products.api_endpoints.Category.urls')),
     path('brands/', include('products.api_endpoints.Brand.urls')),
     path('colors/', include('products.api_endpoints.Color.urls')),
