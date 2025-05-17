@@ -5,15 +5,14 @@ from rest_framework.generics import (
     ListCreateAPIView,
 )
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
 
 from products.models import Product
-from products.api_endpoints.ProductList.serializers import ProductListSerializer
+from products.api_endpoints.Product.ProductList.serializers import ProductListSerializer
 
 
 class ProductListAPIView1(APIView):
     serializer_class = ProductListSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = []
 
     def get(self, request, *args, **kwargs):
         serializer = self.serializer_class(self.get_queryset(), many=True)
@@ -22,11 +21,13 @@ class ProductListAPIView1(APIView):
     def get_queryset(self):
         queryset = Product.objects.filter(is_active=True)
         return queryset
+
     
 
 class ProductListAPIView2(GenericAPIView):
     queryset = Product.objects.filter(is_active=True)
     serializer_class = ProductListSerializer
+    permission_classes = []
 
     def get(self, request, *args, **kwargs):
         serializer = self.serializer_class(self.get_queryset(), many=True)
@@ -40,3 +41,4 @@ class ProductListAPIView2(GenericAPIView):
 class ProductListAPIView3(ListCreateAPIView):
     queryset = Product.objects.filter(is_active=True)
     serializer_class = ProductListSerializer
+    permission_classes = []

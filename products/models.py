@@ -28,7 +28,15 @@ class ProductVariant(BaseModel):
 
     def __str__(self):
         return f"{self.product.name} - {self.price}"
-    
+
+
+class Category(BaseModel):
+    name = models.CharField(max_length=255, null=False, blank=False)
+    slug = models.SlugField(null=False, blank=False, unique=True)
+
+    def __str__(self):
+        return self.name
+
 
 class Brand(BaseModel):
     name = models.CharField(max_length=255, null=False, blank=False)
@@ -37,15 +45,7 @@ class Brand(BaseModel):
 
     def __str__(self):
         return self.name
-    
 
-class Category(BaseModel):
-    name = models.CharField(max_length=255, null=False, blank=False)
-    slug = models.SlugField(null=False, blank=False, unique=True)
-
-    def __str__(self):
-        return self.name
-    
 
 class Size(BaseModel):
     name = models.CharField(max_length=255, null=False, blank=False)
