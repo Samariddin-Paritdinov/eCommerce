@@ -38,7 +38,7 @@ class ProductListAPIView2(GenericAPIView):
     #     return queryset
 
 
-class ProductListAPIView3(ListCreateAPIView):
+class ProductListAPIView3(ListAPIView):
     queryset = Product.objects.filter(is_active=True)
     serializer_class = ProductListSerializer
     permission_classes = []

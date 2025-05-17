@@ -1,10 +1,10 @@
 from rest_framework import serializers
 
-from products.models import Color
+from products.models import Size
 
-class ColorCreateSerializer(serializers.ModelSerializer):
+class SizeCreateSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Color
+        model = Size
         fields = [
             "name",
             "slug",

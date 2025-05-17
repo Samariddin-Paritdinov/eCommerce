@@ -1,11 +1,11 @@
 from rest_framework import serializers
 
-from products.models import Brand
+from products.models import Size
 
-class BrandUpdateSerializer(serializers.ModelSerializer):
+class SizeUpdateSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Brand
-        fields = ['id', 'name', 'slug', 'logo']
+        model = Size
+        fields = ['id', 'name', 'slug']
         read_only_fields = ['id']
 
     def __init__(self, *args, **kwargs):
@@ -18,6 +18,6 @@ class BrandUpdateSerializer(serializers.ModelSerializer):
 
         if 'slug' in attrs:
             slug = attrs['slug']
-            if Brand.objects.filter(slug=slug).exclude(id=brand.id).exists():
+            if Size.objects.filter(slug=slug).exclude(id=brand.id).exists():
                 raise serializers.ValidationError("Slug must be unique.")
         return attrs

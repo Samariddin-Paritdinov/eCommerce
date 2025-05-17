@@ -1,8 +1,8 @@
 from rest_framework import serializers
 
-from products.models import Color
+from products.models import Size
 
-class ColorRetrieveSerializer(serializers.ModelSerializer):
+class SizeRetrieveSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Color
+        model = Size
         fields = ['id', 'name', 'slug', 'created_at', 'updated_at']

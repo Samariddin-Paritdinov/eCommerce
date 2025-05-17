@@ -30,6 +30,8 @@ urlpatterns = [
     path('products/', include('products.api_endpoints.Product.urls')),
     path('categories/', include('products.api_endpoints.Category.urls')),
     path('brands/', include('products.api_endpoints.Brand.urls')),
+    path('colors/', include('products.api_endpoints.Color.urls')),
+    path('sizes/', include('products.api_endpoints.Size.urls')),
 
     path('admin/', admin.site.urls),
     # Swagger and Redoc URLs
