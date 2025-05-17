@@ -5,7 +5,10 @@ from products.api_endpoints.Product import *
 
 
 urlpatterns = [
-    path('list1/', ProductListAPIView1.as_view(), name="product-list1"),
-    path('list2/', ProductListAPIView2.as_view(), name="product-list2"),
-    path('list3/', ProductListAPIView3.as_view(), name="product-list3")
+    path('create/', ProductCreateAPIView.as_view(), name='product-create'),
+    path('delete/<int:id>/', ProductDeleteAPIView.as_view(), name='product-delete'),
+    path('read/', ProductListAPIView.as_view(), name='product-list'),
+    path('read/<int:id>/', ProductRetrieveAPIView.as_view(), name='product-retrieve'),
+    path('update/<int:id>/', ProductUpdateAPIView.as_view(), name='product-update'),
+
 ]
