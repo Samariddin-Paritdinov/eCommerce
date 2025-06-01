@@ -1,3 +1,5 @@
+from drf_yasg.utils import swagger_auto_schema
+from rest_framework import serializers
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -8,7 +10,15 @@ from accounts.api_endpoints.Profile.Register.email_send import send_email_confir
 
 User = get_user_model()
 
+class RegisterInputSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    password = serializers.CharField()
+
+class ConfirmTokenSerializer(serializers.Serializer):
+    token = serializers.CharField()
+
 class RegisterUserAPIView(APIView):
+    @swagger_auto_schema(request_body=RegisterInputSerializer)
     def post(self, request):
         email = request.data.get("email")
         password = request.data.get("password")
@@ -37,6 +47,7 @@ class RegisterUserAPIView(APIView):
 
 
 class ConfirmEmailAPIView(APIView):
+    @swagger_auto_schema(request_body=ConfirmTokenSerializer)
     def post(self, request):
         token = request.data.get("token")
 
