@@ -1,31 +1,62 @@
-from rest_framework import generics, status
+from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework_simplejwt.tokens import RefreshToken
-from django.urls import reverse
-from django.contrib.sites.shortcuts import get_current_site
+from rest_framework import status
+from django.contrib.auth import get_user_model
 
+from accounts.api_endpoints.Profile.Register.tokens import generate_email_confirmation_token, verify_email_confirmation_token
+from accounts.api_endpoints.Profile.Register.email_send import send_email_confirmation
 
-from accounts.api_endpoints.Profile.Register.serializers import RegisterSerializer
-from accounts.api_endpoints.Profile.Register.email_send import send_normal_email
+User = get_user_model()
 
-
-class RegisterView(generics.GenericAPIView):
-    serializer_class = RegisterSerializer
-
+class RegisterUserAPIView(APIView):
     def post(self, request):
-        serializer = self.serializer_class(data=request.data)
-        if serializer.is_valid():
-            user = serializer.save()
-            token = RefreshToken.for_user(user).access_token
-            current_site = get_current_site(request).domain
-            relative_link = reverse("email-verify")
-            absurl = "http://" + current_site + relative_link + "?token=" + str(token)
-            email_body = f"Hi {user.username} Use the link below to verify your email \n{absurl}"
-            data = {
-                "email_subject": "Verify your email",
-                "email_body": email_body,
-                "to_email": user.email,
-            }
-            send_normal_email(data)
-            return Response({"msg": "Registration successful"}, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        email = request.data.get("email")
+        password = request.data.get("password")
+
+        if not email or not password:
+            return Response({"detail": "Email and password are required."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Foydalanuvchi mavjudligini tekshirish
+        existing = User.objects.filter(email=email).first()
+        if existing:
+            if existing.is_active:
+                return Response({"detail": "This email is already registered and confirmed."}, status=status.HTTP_400_BAD_REQUEST)
+            existing.delete()  # Eski is_active=False userni o‘chir
+
+        # Yangi foydalanuvchi yaratish
+        user = User.objects._create_user(email=email, password=password, is_active=False)
+
+        # Tasdiqlash tokeni yaratish
+        token = generate_email_confirmation_token(user)
+
+        # Email yuborish
+        send_email_confirmation(user.email, token)
+
+        return Response({"detail": "User created. Confirmation email sent."}, status=status.HTTP_201_CREATED)
+    
+
+
+class ConfirmEmailAPIView(APIView):
+    def post(self, request):
+        token = request.data.get("token")
+
+        if not token:
+            return Response({"detail": "Token is required."}, status=status.HTTP_400_BAD_REQUEST)
+
+        user_id = verify_email_confirmation_token(token)
+
+        if not user_id:
+            return Response({"detail": "Invalid or expired token."}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            user = User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            return Response({"detail": "User not found."}, status=status.HTTP_404_NOT_FOUND)
+
+        if user.is_active:
+            return Response({"detail": "Email already confirmed."}, status=status.HTTP_400_BAD_REQUEST)
+
+        user.is_active = True
+        user.save()
+
+        return Response({"detail": "Email successfully confirmed."}, status=status.HTTP_200_OK)

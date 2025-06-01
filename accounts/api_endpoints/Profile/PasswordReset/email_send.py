@@ -7,7 +7,7 @@ def send_password_reset_email(email, token):
     to_email = email
     context = {
         "token": token,
-        "frontend_url": "voocommerce.com",
+        "frontend_url": "eCommerce.com",
     }
     html_content = render_to_string("reset_password_email.html", context)
     email = EmailMessage(subject, html_content, to=[to_email])
