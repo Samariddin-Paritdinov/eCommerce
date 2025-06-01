@@ -18,6 +18,7 @@ class ConfirmTokenSerializer(serializers.Serializer):
     token = serializers.CharField()
 
 class RegisterUserAPIView(APIView):
+    permission_classes = []  
     @swagger_auto_schema(request_body=RegisterInputSerializer)
     def post(self, request):
         email = request.data.get("email")
@@ -51,6 +52,7 @@ class RegisterUserAPIView(APIView):
 
 
 class ConfirmEmailAPIView(APIView):
+    permission_classes = []
     @swagger_auto_schema(request_body=ConfirmTokenSerializer)
     def post(self, request):
         token = request.data.get("token")
