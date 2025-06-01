@@ -9,5 +9,5 @@ urlpatterns = [
     path('password-reset/confirm/', PasswordResetConfirmAPIView.as_view(), name="password-reset-confirm"),
     
     path('register/', RegisterUserAPIView.as_view(), name="register"),
-    path('confirm-email/', ConfirmEmailAPIView.as_view(), name="confirm-email"),
+    path('register/confirm/', ConfirmEmailAPIView.as_view(), name="register-confirm"),
 ]

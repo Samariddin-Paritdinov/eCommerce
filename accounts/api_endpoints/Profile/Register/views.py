@@ -6,7 +6,7 @@ from rest_framework import status
 from django.contrib.auth import get_user_model
 
 from accounts.api_endpoints.Profile.Register.tokens import generate_email_confirmation_token, verify_email_confirmation_token
-from accounts.api_endpoints.Profile.Register.email_send import send_email_confirmation
+from accounts.api_endpoints.Profile.Register.email_send import send_email_confirmation, send_email_confirmation_with_password
 
 User = get_user_model()
 
@@ -28,19 +28,23 @@ class RegisterUserAPIView(APIView):
 
         # Foydalanuvchi mavjudligini tekshirish
         existing = User.objects.filter(email=email).first()
-        if existing:
-            if existing.is_active:
-                return Response({"detail": "This email is already registered and confirmed."}, status=status.HTTP_400_BAD_REQUEST)
-            existing.delete()  # Eski is_active=False userni o‘chir
+        if existing and existing.is_active:
+            return Response({"detail": "This email is already registered and confirmed."}, status=status.HTTP_400_BAD_REQUEST)
+            
+            
 
         # Yangi foydalanuvchi yaratish
         user = User.objects._create_user(email=email, password=password, is_active=False)
 
         # Tasdiqlash tokeni yaratish
         token = generate_email_confirmation_token(user)
-
+        
         # Email yuborish
-        send_email_confirmation(user.email, token)
+        if existing:
+            existing.delete()  # Eski is_active=False userni o‘chirish
+            send_email_confirmation_with_password(user.email, token)
+        else:
+            send_email_confirmation(user.email, token)
 
         return Response({"detail": "User created. Confirmation email sent."}, status=status.HTTP_201_CREATED)
     
