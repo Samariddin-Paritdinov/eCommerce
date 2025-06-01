@@ -44,3 +44,10 @@ class ColorAdmin(admin.ModelAdmin):
     list_display = ("id", "name")
     list_display_links = ("id", "name")
     search_fields = ("name",)
+
+
+@admin.register(ProductVariant)
+class ProductVariantAdmin(admin.ModelAdmin):
+    list_display = ("id", "product", "size", "color", "price")
+    list_display_links = ("id", "product")
+    search_fields = ("product", "size", "color")
