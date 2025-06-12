@@ -41,6 +41,7 @@ urlpatterns = [
     path('brands/', include('products.api_endpoints.Brand.urls')),
     path('colors/', include('products.api_endpoints.Color.urls')),
     path('sizes/', include('products.api_endpoints.Size.urls')),
+    path('reviews/', include('products.api_endpoints.ReviewComment.urls')),
 
     path('cart-item/', include('accounts.api_endpoints.CartItem.urls')),
     path('cart/', include('accounts.api_endpoints.Cart.urls')),
