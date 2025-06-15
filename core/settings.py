@@ -61,6 +61,7 @@ EXTERNAL_APPS = [
     'drf_yasg',
     'crispy_forms',
     "crispy_bootstrap4",
+    "rosetta",
 ]
 
 
@@ -75,6 +76,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -278,3 +280,16 @@ JAZZMIN_SETTINGS = {
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+
+# I18n
+
+from django.utils.translation import gettext_lazy as _
+
+LANGUAGES = [
+    ("uz", _("Uzbek")),
+    ("en", _("English")),
+    ("ru", _("Russian"))
+]
+
+LOCALE_PATHS = [BASE_DIR / "locale"]
