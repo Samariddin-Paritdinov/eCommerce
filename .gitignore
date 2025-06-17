@@ -177,3 +177,6 @@ cython_debug/
 media/
 .idea
 .DS_Store
+
+media
+locale/
