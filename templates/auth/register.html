@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 
-{% block title %}VooCommerce | Register{% endblock title %}
+{% block title %}eCommerce | Register{% endblock title %}
 
 {% block content %}
 
 <div class="container">
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <form action="{% url 'register' %}" method="post">
+            <form action="{% url 'profile:register' %}" method="post">
                 {% csrf_token %}
                 <div class="form-row">
                     <div class="col">

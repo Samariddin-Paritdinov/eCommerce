@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.utils.translation import gettext_lazy as _
 
 from accounts.models import User, Cart, CartItem
 
@@ -20,6 +21,15 @@ class UserAdmin(BaseUserAdmin):
         (('Personal info'), {'fields': ('first_name', 'last_name', 'phone_number', 'avatar', 'bio')}),
         (('Permissions'), {
             'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'),
+        }),
+        (_("Uzbek"), {
+            "fields": ("bio_uz",)
+        }),
+        (_("English"), {
+            "fields": ("bio_en",)
+        }),
+        (_("Russian"), {
+            "fields": ("bio_ru",)
         }),
     )
     

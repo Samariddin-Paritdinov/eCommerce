@@ -19,7 +19,7 @@ def common_context(request):
             pass
 
     return {
-        'site_name': 'VooCommerce',
+        'site_name': 'eCommerce',
         'is_user_authenticated': request.user.is_authenticated,
         'user_cart_items_count': cart_items_count,
         'cart_total_amount': total_amount / 100

@@ -294,7 +294,14 @@ LANGUAGES = [
 ]
 
 # LANGUAGE_CODE = 'en'
+MODELTRANSLATION_LANGUAGES = ('uz', 'en', 'ru')
 MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
+MODELTRANSLATION_FALLBACK_LANGUAGES = {
+    'default': ('uz', 'en', 'ru'),
+    'uz': ('en', 'ru'),
+    'en': ('uz', 'ru'),
+    'ru': ('uz', 'en'),
+}
 
 LOCALE_PATHS = [BASE_DIR / "locale"]
 

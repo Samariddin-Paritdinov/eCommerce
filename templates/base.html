@@ -62,7 +62,7 @@
                                     <li><a href="#">English</a></li>
                                 </ul>
                             </div>
-                            {% if not is_user_authenticated %}
+                            {% if is_user_authenticated %}
                                 <div class="header__top__right__auth">
                                     <a href="{% url 'accounts:profile-template' %}"><i class="fa fa-user"></i> Profile</a>
                                 </div>

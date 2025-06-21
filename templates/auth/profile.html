@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 
-{% block title %}VooCommerce | Profile{% endblock title %}
+{% block title %}eCommerce | Profile{% endblock title %}
 
 {% block content %}
 
@@ -36,7 +36,7 @@
                         document.getElementById("id_phone_number").value = "{{request.user.phone_number}}";
                     </script>
                 </div>
-                <button type="submit" class="btn btn-primary btn-block">Register</button>
+                <button type="submit" class="btn btn-primary btn-block">Save</button>
             </form>
         </div>
     </div>
