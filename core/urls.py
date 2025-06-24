@@ -48,6 +48,8 @@ urlpatterns = [
 
     path('stories/', include('products.api_endpoints.Story.urls')),
 
+    path('orders/', include('orders.api_endpoints.Checkout.urls')),
+
     
     path('admin/', admin.site.urls),
     # Swagger and Redoc URLs
