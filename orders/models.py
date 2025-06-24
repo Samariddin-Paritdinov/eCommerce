@@ -3,6 +3,8 @@ from django.db import models
 from common.models import BaseModel
 from common.choices import OrderStatus
 
+from django.utils.translation import gettext_lazy as _
+
 
 class Order(BaseModel):
     user = models.ForeignKey('accounts.User', on_delete=models.SET_NULL, null=True, blank=True)
@@ -12,6 +14,10 @@ class Order(BaseModel):
 
     def __str__(self):
         return f"Order<id={self.id}, price={self.total_price}>"
+    
+    class Meta:
+        verbose_name = _('Order')
+        verbose_name_plural = _('Orders')
 
 
 class OrderItem(BaseModel):
@@ -22,3 +28,7 @@ class OrderItem(BaseModel):
     
     def __str__(self):
         return f"OrderItem<product_id={self.product_id}>"
+    
+    class Meta:
+        verbose_name = _('Order Item')
+        verbose_name_plural = _('Order Items')
