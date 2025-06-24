@@ -46,6 +46,7 @@ urlpatterns = [
     path('cart-item/', include('accounts.api_endpoints.CartItem.urls')),
     path('cart/', include('accounts.api_endpoints.Cart.urls')),
 
+    path('stories/', include('products.api_endpoints.Story.urls')),
 
     
     path('admin/', admin.site.urls),

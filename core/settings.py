@@ -63,6 +63,7 @@ EXTERNAL_APPS = [
     "crispy_bootstrap4",
     "rosetta",
     "modeltranslation",
+    "django_celery_beat",
 ]
 
 
@@ -174,6 +175,8 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Asia/Tashkent'
+
+CELERY_TIMEZONE = TIME_ZONE
 
 USE_I18N = True
 

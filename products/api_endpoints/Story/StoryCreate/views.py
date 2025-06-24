@@ -8,5 +8,5 @@ from products.api_endpoints.Story.StoryCreate.serializers import StoryCreateSeri
 class StoryCreateAPIView(CreateAPIView):
     queryset = Story.objects.all()
     serializer_class = StoryCreateSerializer
-    permission_classes = [permissions.IsAuthenticated]
-    parser_classes = [parsers.MultiPartParser, parsers.JSONParser]
+    permission_classes = [permissions.IsAdminUser]
+    parser_classes = [parsers.MultiPartParser, parsers.FormParser]
