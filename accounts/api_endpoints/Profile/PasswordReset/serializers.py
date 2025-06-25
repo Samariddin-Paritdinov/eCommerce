@@ -1,3 +1,5 @@
+import logging
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
@@ -7,6 +9,7 @@ from accounts.tokens import (
     verify_email_confirm_token
 )
 
+logger = logging.getLogger(__name__)
 User = get_user_model()
 
 class PasswordResetRequestSerializer(serializers.Serializer):
@@ -21,6 +24,9 @@ class PasswordResetRequestSerializer(serializers.Serializer):
     
     def save(self):
         token = generate_email_confirm_token(self.user)
+
+        logger.info(f"Password reset token generated for user: {self.user.email} \ntoken: {token}")
+
         send_email_task = self.context["send_email"]
         send_email_task.delay(
             subject="Reset your password", 

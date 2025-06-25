@@ -14,7 +14,6 @@ app_name = 'accounts'
 apis = [
     path('session-login/', SessionLoginAPIView.as_view(), name="login-session"),
     path('session-logout/', SessionLogoutAPIView.as_view(), name="logout-session"),
-
 ]
 
 template_urls = [

@@ -1,0 +1,1 @@
+TOKEN_EXPIRY_SECONDS = 1 * 60 * 60  # 1 hour

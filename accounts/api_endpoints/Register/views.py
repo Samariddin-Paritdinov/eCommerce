@@ -1,3 +1,5 @@
+import logging
+
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -10,6 +12,7 @@ from accounts.models import Cart
 from accounts.api_endpoints.Register.serializers import RegisterInputSerializer, ConfirmTokenSerializer
 
 
+logger = logging.getLogger(__name__)
 User = get_user_model()
 
 
@@ -31,6 +34,7 @@ class RegisterUserAPIView(APIView):
         if existing:
             if not existing.is_confirmed:
                 token = generate_email_confirm_token(user)
+                logger.info(f"User {existing.email} already exists but not confirmed. Sending confirmation email.\n token: {token}")
                 new_pass = generate_temporary_password()
                 existing.set_password(new_pass)
                 existing.save()
@@ -57,6 +61,8 @@ class RegisterUserAPIView(APIView):
         user = User.objects._create_user(email=email, password=password, is_confirmed=False)
         token = generate_email_confirm_token(user)
 
+        logger.info(f"New user created: {user.email}. Sending confirmation email.\n token: {token}")
+        
         send_email(
             subject="Reset your password", 
             intro_text="Click the link below to reset your password.", 

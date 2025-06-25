@@ -16,6 +16,7 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
     bio = models.TextField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    is_confirmed = models.BooleanField(default=False)
     saved_products = models.ManyToManyField("products.Product", related_name="saved_by_users")
 
 
