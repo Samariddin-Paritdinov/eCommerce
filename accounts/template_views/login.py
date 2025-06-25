@@ -8,6 +8,6 @@ class LoginView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'VooCommerce | Login'
+        context['title'] = 'eCommerce | Login'
         context['form'] = LoginForm()
         return context

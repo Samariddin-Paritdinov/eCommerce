@@ -18,7 +18,7 @@ from datetime import timedelta
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -187,7 +187,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
@@ -218,15 +218,15 @@ TOKEN_EXPIRY_SECONDS = 3600  # 1 hour
 # JAZZMIN settingsAdd commentMore actions
 
 JAZZMIN_SETTINGS = {
-    "site_title": "VooCommerce Admin",
-    "site_header": "VooCommerce",
-    "site_logo": "apple.jpg",
-    "login_logo": "apple.jpg",
+    "site_title": "eCommerce Admin",
+    "site_header": "eCommerce",
+    "site_logo": "img/jazzmin.png",
+    "login_logo": "img/jazzmin.png",
     "site_logo_classes": "img-circle",
-    "site_icon": "apple.jpg",
-    "welcome_sign": "Welcome to the VooCommerce Admin",
+    "site_icon": "img/jazzmin.png",
+    "welcome_sign": "Welcome to the eCommerce Admin",
     "copyright": "UIC Academy",
-    "search_model": ["auth.User", "auth.Group"],
+    "search_model": ["accounts.user", "auth.group"],
     "user_avatar": "avatar",
 
     ############
@@ -247,18 +247,11 @@ JAZZMIN_SETTINGS = {
     "navigation_expanded": False,
     "hide_apps": [],
     "hide_models": [],
-    "custom_links": {
-        "books": [{
-            "name": "Make Messages", 
-            "url": "make_messages", 
-            "icon": "fas fa-comments",
-            "permissions": ["books.view_book"]
-        }]
-    },
+    "custom_links": {},
     "icons": {
         "auth": "fas fa-users-cog",
-        "auth.user": "fas fa-user",
-        "auth.Group": "fas fa-users",
+        "accounts.user": "fas fa-user",
+        "auth.group": "fas fa-users",
     },
     "default_icon_parents": "fas fa-chevron-circle-right",
     "default_icon_children": "fas fa-circle",
@@ -277,7 +270,7 @@ JAZZMIN_SETTINGS = {
     "show_ui_builder": True,
 
     "changeform_format": "horizontal_tabs",
-    "changeform_format_overrides": {"auth.user": "collapsible", "auth.group": "vertical_tabs"},
+    "changeform_format_overrides": {"accounts.user": "collapsible", "auth.group": "vertical_tabs"},
     "language_chooser": True,
 }
 
