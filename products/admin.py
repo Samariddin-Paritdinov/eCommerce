@@ -17,6 +17,14 @@ from products.models import (
 class ProductVariantInline(admin.TabularInline):
     model = ProductVariant
 
+class ReviewInline(admin.TabularInline):
+    model = Review
+    extra = 0
+
+class CommentInline(admin.TabularInline):
+    model = Comment
+    extra = 0
+
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
@@ -40,7 +48,7 @@ class ProductAdmin(admin.ModelAdmin):
             'fields': ('name_ru', 'description_ru')
         }))
 
-    inlines = [ProductVariantInline]
+    inlines = [ProductVariantInline, ReviewInline, CommentInline]
 
 
 @admin.register(Brand)
