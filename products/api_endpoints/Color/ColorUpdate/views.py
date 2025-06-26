@@ -6,5 +6,5 @@ from products.models import Color
 class ColorUpdateAPIView(UpdateAPIView):
     queryset = Color.objects.all()
     serializer_class = ColorUpdateSerializer
-    lookup_field = ['id']
+    lookup_field = 'id'
     
